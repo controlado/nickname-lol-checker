@@ -37,7 +37,7 @@
 ### Instance methods:
 
 <details>
-  <summary>✅ (start) -> checker response </summary>
+  <summary>✅ (start) -> dict: checker response </summary>
 
   ```python
     def start(self) -> dict:
@@ -65,7 +65,7 @@
 </details>
 
 <details>
-  <summary>✅ (check_nickname) -> get_left_time(response.text) </summary>
+  <summary>✅ (check_nickname) -> int: get_left_time(response.text) </summary>
 
   ```python
     def check_nickname(self, url: str) -> int:
@@ -77,7 +77,7 @@
 </details>
 
 <details>
-  <summary>✅ (is_request_valid) -> true if the nickname follows the riot rules and is a valid region  </summary>
+  <summary>✅ (is_request_valid) -> bool: true if the nickname follows the riot rules and is a valid region  </summary>
 
   ```python
     def is_request_valid(self) -> bool:
@@ -90,7 +90,7 @@
 
 </details>
 <details>
-  <summary>✅ (get_left_time) -> days left until the nick becomes available </summary>
+  <summary>✅ (get_left_time) -> int: days left until the nick becomes available </summary>
 
   ```python
     def get_left_time(self, response_text: str) -> int:
@@ -105,7 +105,7 @@
 ### Static (class) methods:
 
 <details>
-  <summary>🌱 (get_valid_regions) -> list with all valid regions </summary>
+  <summary>🌱 (get_valid_regions) -> list: with all valid regions </summary>
 
   ```python
     def get_valid_regions() -> list:
@@ -115,7 +115,7 @@
 </details>
 
 <details>
-  <summary>🌱 (valid_nickname) -> str containing only numbers, letters and space </summary>
+  <summary>🌱 (valid_nickname) -> str: containing only numbers, letters and space </summary>
 
   ```python
     def valid_nickname(nickname: str) -> str:
