@@ -9,38 +9,38 @@ class Checker:
     lols_gg = "https://lols.gg/en/name/checker"
     lol_names = "https://lolnames.gg/en"
 
-    def __init__(self, username: str, region: str):
-        self.username = self.valid_username(username)
+    def __init__(self, nickname: str, region: str):
+        self.nickname = self.valid_nickname(nickname)
         self.region = region.upper()
 
     def start(self) -> dict:
         return (
             {
                 "statusCode": 200,
-                "username": self.username,
+                "nickname": self.nickname,
                 "region": self.region,
-                "lolsGG": self.check(self.lols_gg),
-                "lolNames": self.check(self.lol_names)
+                "lolsGG": self.nickname(self.lols_gg),
+                "lolNames": self.nickname(self.lol_names)
             }
 
             if self.is_request_valid()
 
             else {
                 "statusCode": 400,
-                "username": self.username,
+                "nickname": self.nickname,
                 "region": self.region,
                 "lolsGG": None,
                 "lolNames": None
             }
         )
 
-    def check(self, url: str) -> str:
-        url = f"{url}/{self.region}/{self.username}"
+    def nickname(self, url: str) -> str:
+        url = f"{url}/{self.region}/{self.nickname}"
         response = requests.get(url, headers=self.headers)
         return self.get_left_time(response.text)
 
     def is_request_valid(self) -> bool:
-        return len(self.username) > 2 and self.region in self.get_valid_regions()
+        return len(self.nickname) > 2 and self.region in self.get_valid_regions()
 
     def get_left_time(self, response_text: str) -> int:
         response = re.search("available in ([^.]*) days.", response_text)
@@ -51,8 +51,8 @@ class Checker:
         return ["BR", "NA", "OCE", "LAS", "LAN", "EUNE", "EUW", "KR", "JP", "RU", "TR"]
 
     @staticmethod
-    def valid_username(username: str) -> str:
-        return re.sub("[^0-9a-zA-Z ]", "", username)
+    def valid_nickname(nickname: str) -> str:
+        return re.sub("[^0-9a-zA-Z ]", "", nickname)
 
 
 if __name__ == "__main__":
