@@ -1,5 +1,5 @@
+from json import dump
 import requests
-import json
 import re
 
 
@@ -19,8 +19,8 @@ class Checker:
                 "statusCode": 200,
                 "nickname": self.nickname,
                 "region": self.region,
-                "lolsGG": self.nickname(self.lols_gg),
-                "lolNames": self.nickname(self.lol_names)
+                "lolsGG": self.check_nickname(self.lols_gg),
+                "lolNames": self.check_nickname(self.lol_names)
             }
 
             if self.is_request_valid()
@@ -34,7 +34,7 @@ class Checker:
             }
         )
 
-    def nickname(self, url: str) -> str:
+    def check_nickname(self, url: str) -> str:
         url = f"{url}/{self.region}/{self.nickname}"
         response = requests.get(url, headers=self.headers)
         return self.get_left_time(response.text)
@@ -60,4 +60,4 @@ if __name__ == "__main__":
     availability = checker.start()
 
     with open("response.json", "w") as f:
-        json.dump(availability, f, indent=4)
+        dump(availability, f, indent=4)
