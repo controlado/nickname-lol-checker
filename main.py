@@ -39,18 +39,20 @@ class Checker:
         response = requests.get(url, headers=self.headers)
         return self.get_left_time(response.text)
 
-    def valid_username(self, username: str) -> str:
-        return re.sub("[^0-9a-zA-Z ]", "", username)
-
     def is_request_valid(self) -> bool:
         return len(self.username) > 2 and self.region in self.get_valid_regions()
 
-    def get_left_time(self, text: str) -> int:
-        response = re.search("available in ([^.]*) days.", text)
+    def get_left_time(self, response_text: str) -> int:
+        response = re.search("available in ([^.]*) days.", response_text)
         return int(response[1]) if response is not None else 0
 
-    def get_valid_regions(self) -> list:
+    @staticmethod
+    def get_valid_regions() -> list:
         return ["BR", "NA", "OCE", "LAS", "LAN", "EUNE", "EUW", "KR", "JP", "RU", "TR"]
+
+    @staticmethod
+    def valid_username(username: str) -> str:
+        return re.sub("[^0-9a-zA-Z ]", "", username)
 
 
 if __name__ == "__main__":
