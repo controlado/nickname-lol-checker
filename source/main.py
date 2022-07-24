@@ -34,7 +34,7 @@ class Checker:
             }
         )
 
-    def check_nickname(self, url: str) -> str:
+    def check_nickname(self, url: str) -> int:
         url = f"{url}/{self.region}/{self.nickname}"
         response = requests.get(url, headers=self.headers)
         return self.get_left_time(response.text)
