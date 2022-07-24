@@ -40,7 +40,11 @@ class Checker:
         return self.get_left_time(response.text)
 
     def is_request_valid(self) -> bool:
-        return len(self.nickname) > 2 and self.region in self.get_valid_regions()
+        return (
+            2 < len(self.nickname) < 17
+            and "Riot" not in self.nickname
+            and self.region in self.get_valid_regions()
+        )
 
     def get_left_time(self, response_text: str) -> int:
         response = re.search("available in ([^.]*) days.", response_text)
@@ -52,7 +56,7 @@ class Checker:
 
     @staticmethod
     def valid_nickname(nickname: str) -> str:
-        return re.sub("[^0-9a-zA-Z ]", "", nickname)
+        return re.sub("[^0-9a-zA-Zç ]", "", nickname)
 
 
 if __name__ == "__main__":

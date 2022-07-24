@@ -77,11 +77,15 @@
 </details>
 
 <details>
-  <summary>✅ (is_request_valid) -> true if the nickname is longer than 2 characters and is a valid region  </summary>
+  <summary>✅ (is_request_valid) -> true if the nickname follows the riot rules and is a valid region  </summary>
 
   ```python
     def is_request_valid(self) -> bool:
-        return len(self.nickname) > 2 and self.region in self.get_valid_regions()
+        return (
+            2 < len(self.nickname) < 17
+            and "Riot" not in self.nickname
+            and self.region in self.get_valid_regions()
+        )
   ```
 
 </details>
@@ -115,7 +119,7 @@
 
   ```python
     def valid_nickname(nickname: str) -> str:
-        return re.sub("[^0-9a-zA-Z ]", "", nickname)
+        return re.sub("[^0-9a-zA-Zç ]", "", nickname)
   ```
 
 </details>
