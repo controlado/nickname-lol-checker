@@ -42,7 +42,7 @@ class Checker:
     def is_request_valid(self) -> bool:
         return (
             2 < len(self.nickname) < 17
-            and "Riot" not in self.nickname
+            and "RIOT" not in self.nickname.upper()
             and self.region in self.get_valid_regions()
         )
 
