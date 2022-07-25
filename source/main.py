@@ -1,6 +1,14 @@
-from json import dump
+from json import dump, dumps
 import requests
+import os
 import re
+
+
+def welcome() -> dict:
+    os.system("cls" if os.name == "nt" else "clear")
+    print("[!] Escreva o nick que deseja checar.")
+    checker = Checker(input("[>] Nickname: "))
+    return checker.start()
 
 
 class Checker:
@@ -9,11 +17,13 @@ class Checker:
     lols_gg = "https://lols.gg/en/name/checker"
     lol_names = "https://lolnames.gg/en"
 
-    def __init__(self, nickname: str, region: str):
-        self.nickname = self.valid_nickname(nickname)
+    def __init__(self, nickname: str, region: str = "BR"):
+        self.nickname = nickname
         self.region = region.upper()
 
     def start(self) -> dict:
+        print("[!] Checando o nick...")
+
         return (
             {
                 "statusCode": 200,
@@ -60,8 +70,10 @@ class Checker:
 
 
 if __name__ == "__main__":
-    checker = Checker("Balaclava", "BR")
-    availability = checker.start()
+    while True:
+        availability = welcome()
+        response = dumps(availability, indent=4, ensure_ascii=False)
+        input(response)
 
     with open("response.json", "w") as f:
-        dump(availability, f, indent=4)
+        dump(availability, f, indent=4, ensure_ascii=False)
