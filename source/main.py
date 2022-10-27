@@ -1,4 +1,5 @@
-from json import dump, dumps
+from json import dumps
+
 import requests
 import os
 import re
@@ -57,16 +58,12 @@ class Checker:
         )
 
     def get_left_time(self, response_text: str) -> int:
-        response = re.search("available in ([^.]*) days.", response_text)
+        response = re.search(r"available in (\d*) days", response_text)
         return int(response[1]) if response is not None else 0
 
     @staticmethod
     def get_valid_regions() -> list:
         return ["BR", "NA", "OCE", "LAS", "LAN", "EUNE", "EUW", "KR", "JP", "RU", "TR"]
-
-    @staticmethod
-    def valid_nickname(nickname: str) -> str:
-        return re.sub("[^0-9a-zA-Zç ]", "", nickname)
 
 
 if __name__ == "__main__":
@@ -74,6 +71,3 @@ if __name__ == "__main__":
         availability = welcome()
         response = dumps(availability, indent=4, ensure_ascii=False)
         input(response)
-
-    with open("response.json", "w") as f:
-        dump(availability, f, indent=4, ensure_ascii=False)
